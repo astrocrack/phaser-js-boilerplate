@@ -1,6 +1,7 @@
 var preloader = {};
 
 preloader.preload = function () {
+
    this.game.load.tilemap('map', 'assets/room.json', null, Phaser.Tilemap.TILED_JSON);
     
     this.game.load.image('wall_1', 'assets/sprites/wall_1.png');
@@ -10,6 +11,7 @@ preloader.preload = function () {
     
     
     this.game.load.audio('blaster', 'assets/audio/SoundEffects/p-ping.mp3');
+
 };
 
 preloader.create = function () {

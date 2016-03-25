@@ -95,7 +95,7 @@ module.exports = function (grunt) {
         , options:
           { transform: ['browserify-shim']
           , watch: true
-          , bundleOptions:
+          , browserifyOptions:
             { debug: !productionBuild
             }
           }
@@ -110,18 +110,13 @@ module.exports = function (grunt) {
 
     , cacheBust:
       { options:
-        { encoding: 'utf8'
-        , algorithm: 'md5'
-        , length: 8
+        { assets: ['audio/**', 'images/**', 'js/**', 'style/**']
+        , baseDir: './build/'
+        , deleteOriginals: true
+        , length: 5
         }
-      , assets:
-        { files:
-          [ { src:
-              [ 'build/index.html'
-              , '<%= project.bundle %>'
-              ]
-            }
-          ]
+      , files: {
+          src: ['./build/js/app.min.*', './build/index.html']
         }
       }
 
@@ -176,6 +171,26 @@ module.exports = function (grunt) {
           [ { expand: true, cwd: 'src/audio/', src: ['**'], dest: 'build/audio/' }
           ]
         }
+      , phaserArcade:
+        { files:
+          [ { src: ['node_modules/phaser/build/custom/phaser-arcade-physics.js'], dest: 'build/js/phaser.js' }
+          ]
+        }
+      , phaserArcadeMin:
+        { files:
+          [ { src: ['node_modules/phaser/build/custom/phaser-arcade-physics.min.js'], dest: 'build/js/phaser.js' }
+          ]
+        }
+      , phaserP2:
+        { files:
+          [ { src: ['node_modules/phaser/build/phaser.js'], dest: 'build/js/phaser.js' }
+          ]
+        }
+      , phaserP2Min:
+        { files:
+          [ { src: ['node_modules/phaser/build/phaser.min.js'], dest: 'build/js/phaser.js' }
+          ]
+        }
       }
 
     , uglify:
@@ -208,7 +223,9 @@ module.exports = function (grunt) {
     , 'browserify'
     , 'jade'
     , 'stylus'
-    , 'copy'
+    , 'copy:images'
+    , 'copy:audio'
+    , 'copy:phaserArcade'
     , 'connect'
     , 'open'
     , 'watch'
@@ -222,7 +239,9 @@ module.exports = function (grunt) {
     , 'jade'
     , 'stylus'
     , 'uglify'
-    , 'copy'
+    , 'copy:images'
+    , 'copy:audio'
+    , 'copy:phaserArcadeMin'
     , 'cacheBust'
     , 'connect'
     , 'open'
