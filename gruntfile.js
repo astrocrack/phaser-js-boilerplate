@@ -78,9 +78,9 @@ module.exports = function (grunt) {
         { files: 'src/style/*.styl'
         , tasks: ['stylus']
         }
-      , images:
-        { files: 'src/images/**/*'
-        , tasks: ['copy:images']
+      , assets:
+        { files: 'src/assets/**/*'
+        , tasks: ['copy:assets']
         }
       , audio:
         { files: 'src/audio/**/*'
@@ -158,17 +158,17 @@ module.exports = function (grunt) {
         }
       , compile:
         { files:
-            [ { src: 'src/images/*.png'
-              , dest: 'src/images/'
+            [ { src: 'src/assets/*.png'
+              , dest: 'src/assets/'
               }
             ]
           }
         }
 
     , copy:
-      { images:
+      { assets:
         { files:
-          [ { expand: true, cwd: 'src/images/', src: ['**'], dest: 'build/images/' }
+          [ { expand: true, cwd: 'src/assets/', src: ['**'], dest: 'build/assets/' }
           ]
         }
       , audio:
@@ -230,7 +230,7 @@ module.exports = function (grunt) {
     ]
   );
 
-  grunt.registerTask('optimise', ['pngmin', 'copy:images']);
+  grunt.registerTask('optimise', ['pngmin', 'copy:assets']);
   grunt.registerTask('cocoon', ['compress:cocoon']);
   grunt.registerTask('zip', ['compress:zip']);
 };
